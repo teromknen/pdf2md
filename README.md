@@ -11,17 +11,34 @@ Muuntaa PDF- ja muita asiakirjoja Markdown-muotoon LLM-käyttöä varten (token-
 
 ```
 src/
-  batch2md.py   – eräkonversio, ajetaan manuaalisesti tai watcherin kautta
-  watch.py      – tarkkailee kansiota ja triggeröi batch2md.py debounce-logiikalla
-dist/           – deploytut versiot (deploy.ps1 kopioi tänne)
-deploy.ps1      – kopioi src/ -> dist/ -> C:\Tools\python-scripts\
+  batch2md.py        – eräkonversio, ajetaan manuaalisesti tai watcherin kautta
+  watch.py           – tarkkailee kansiota ja triggeröi batch2md.py debounce-logiikalla
+dist/                – deploytut versiot (deploy.ps1 kopioi tänne)
+config.ini.example   – konfiguraatiomalli, kopioi nimellä config.ini
+deploy.ps1           – kopioi src/ -> dist/ -> scripts_dir
 ```
+
+## Konfigurointi
+
+Kopioi `config.ini.example` nimellä `config.ini` ja muokkaa polut:
+
+```ini
+[paths]
+watch_dir = C:\Data\PDF2MD              # kansio johon PDF:t pudotetaan
+scripts_dir = C:\Tools\python-scripts   # kansio johon skriptit deploytaan
+
+[settings]
+debounce_seconds = 10                   # odotusaika sekunteina ennen konversiota
+```
+
+Luo `watch_dir`-kansio itse ennen käyttöä. `scripts_dir` luodaan automaattisesti deployn yhteydessä.
+
 
 ## Käyttö
 
-1. Pudota PDF-tiedostot kansioon `C:\Data\PDF2MD\`
-2. Watcher triggeröi konversion automaattisesti 10 sekunnin hiljaisuuden jälkeen
-3. Tulosteet löytyvät `C:\Data\PDF2MD\VVVVKKPP-HHMMSS\`
+1. Pudota tuettuja tiedostoja `watch_dir`-kansioon
+2. Watcher triggeröi konversion automaattisesti `debounce_seconds`-odotusajan jälkeen
+3. Tulosteet löytyvät `watch_dir\VVVVKKPP-HHMMSS\`
 
 Onnistuneet originaalit siirtyvät `archive\`-alikansioon, epäonnistuneet `errors\`-alikansioon. Loki kirjoitetaan `archive\convert.log`-tiedostoon.
 

@@ -1,0 +1,6 @@
+[paths]
+watch_dir = C:\Pdf_Inbox
+scripts_dir = C:\Tools\Python
+
+[settings]
+debounce_seconds = 10

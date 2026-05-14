@@ -1,14 +1,17 @@
-import time, subprocess, pathlib
+import time, subprocess, pathlib, configparser
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-WATCH_DIR   = r"C:\Data\PDF2MD"
-SCRIPT      = r"C:\Tools\python-scripts\batch2md.py"
-DEBOUNCE_S  = 10
-supported   = {".pdf", ".epub", ".xps"}
+config = configparser.ConfigParser()
+config.read(pathlib.Path(__file__).parent.parent / "config.ini")
 
-last_event  = 0
-triggered   = False
+WATCH_DIR  = config["paths"]["watch_dir"]
+SCRIPT     = pathlib.Path(config["paths"]["scripts_dir"]) / "batch2md.py"
+DEBOUNCE_S = int(config["settings"]["debounce_seconds"])
+supported  = {".pdf", ".epub", ".xps"}
+
+last_event = 0
+triggered  = False
 
 class Handler(FileSystemEventHandler):
     def on_created(self, event):
@@ -27,7 +30,7 @@ try:
         time.sleep(1)
         if triggered and (time.time() - last_event) >= DEBOUNCE_S:
             triggered = False
-            subprocess.run(["python", SCRIPT])
+            subprocess.run(["python", str(SCRIPT)])
 except KeyboardInterrupt:
     observer.stop()
 observer.join()

@@ -1,6 +1,9 @@
-import pymupdf4llm, pathlib, re, datetime, shutil
+import pymupdf4llm, pathlib, re, datetime, shutil, configparser
 
-src = pathlib.Path(r"C:\Data\PDF2MD")
+config = configparser.ConfigParser()
+config.read(pathlib.Path(__file__).parent.parent / "config.ini")
+
+src = pathlib.Path(config["paths"]["watch_dir"])
 supported = {".pdf", ".epub", ".xps"}
 files = [f for f in src.iterdir() if f.suffix.lower() in supported]
 
