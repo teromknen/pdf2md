@@ -1,7 +1,7 @@
 import pymupdf4llm, pathlib, re, datetime, shutil, configparser
 
 config = configparser.ConfigParser()
-config.read(pathlib.Path(__file__).parent.parent / "config.ini")
+config.read(pathlib.Path(__file__).parent / "config.ini")
 
 src = pathlib.Path(config["paths"]["watch_dir"])
 supported = {".pdf", ".epub", ".xps"}

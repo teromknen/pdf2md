@@ -3,7 +3,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 config = configparser.ConfigParser()
-config.read(pathlib.Path(__file__).parent.parent / "config.ini")
+config.read(pathlib.Path(__file__).parent / "config.ini")
 
 WATCH_DIR  = config["paths"]["watch_dir"]
 SCRIPT     = pathlib.Path(config["paths"]["scripts_dir"]) / "batch2md.py"
