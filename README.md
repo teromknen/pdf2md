@@ -20,7 +20,7 @@ deploy.ps1           – kopioi src/ -> dist/ -> scripts_dir
 
 ## Konfigurointi
 
-Kopioi `config.ini.example` nimellä `config.ini` ja muokkaa polut:
+Kopioi `src/config.ini.example` nimellä `src/config.ini` ja muokkaa polut:
 
 ```ini
 [paths]
