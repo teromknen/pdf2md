@@ -2,6 +2,8 @@ import time, subprocess, pathlib, configparser
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+VERSION = "2026.05.15_1"
+
 config = configparser.ConfigParser()
 config.read(pathlib.Path(__file__).parent / "config.ini")
 
@@ -26,13 +28,16 @@ class Handler(FileSystemEventHandler):
 observer = Observer()
 observer.schedule(Handler(), WATCH_DIR, recursive=False)
 observer.start()
+print(f"Watch {VERSION} käynnistyi. Tarkkaillaan: {WATCH_DIR}")
 
 try:
     while True:
         time.sleep(1)
         if triggered and (time.time() - last_event) >= DEBOUNCE_S:
             triggered = False
+            print(f"{__import__('datetime').datetime.now():%Y-%m-%d %H:%M:%S} Käynnistetään konversio...")
             subprocess.run(["python", str(SCRIPT)])
+            print("Valmis.")
 except KeyboardInterrupt:
     observer.stop()
 observer.join()
