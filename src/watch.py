@@ -8,7 +8,9 @@ config.read(pathlib.Path(__file__).parent / "config.ini")
 WATCH_DIR  = config["paths"]["watch_dir"]
 SCRIPT     = pathlib.Path(config["paths"]["scripts_dir"]) / "batch2md.py"
 DEBOUNCE_S = int(config["settings"]["debounce_seconds"])
-supported  = {".pdf", ".epub", ".xps"}
+supported  = {".pdf", ".epub", ".xps", ".docx", ".pptx", ".xlsx",
+              ".html", ".htm", ".csv", ".json", ".xml", ".zip",
+              ".jpg", ".jpeg", ".png", ".gif", ".webp"}
 
 last_event = 0
 triggered  = False
