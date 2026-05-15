@@ -1,6 +1,12 @@
 # Konfigurointi
 config.ini
 
+# Testiaineisto
+tests/
+
+# Claude Code
+.claude/
+
 # Python
 __pycache__/
 
