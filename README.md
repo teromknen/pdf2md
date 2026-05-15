@@ -5,7 +5,7 @@ Muuntaa PDF- ja muita asiakirjoja Markdown-muotoon LLM-käyttöä varten (token-
 ## Vaatimukset
 
 - Python 3.10+
-- `pip install pymupdf4llm watchdog`
+- `pip install pymupdf4llm watchdog 'markitdown[all]'`
 
 ## Rakenne
 
@@ -29,6 +29,7 @@ scripts_dir = C:\Tools\python-scripts   # kansio johon skriptit deploytaan
 
 [settings]
 debounce_seconds = 10                   # odotusaika sekunteina ennen konversiota
+pdf_engine = markitdown                 # markitdown | pymupdf4llm
 ```
 
 Luo `watch_dir`-kansio itse ennen käyttöä. `scripts_dir` luodaan automaattisesti deployn yhteydessä.
@@ -44,7 +45,16 @@ Onnistuneet originaalit siirtyvät `archive\`-alikansioon, epäonnistuneet `erro
 
 ## Tuetut formaatit
 
-PDF, EPUB, XPS
+| Formaatti | markitdown | pymupdf4llm |
+|---|---|---|
+| PDF, EPUB | ✓ | ✓ |
+| XPS | – | ✓ |
+| DOCX, PPTX, XLSX | ✓ | – |
+| HTML, CSV, JSON, XML | ✓ | – |
+| ZIP | ✓ | – |
+| Kuvat (JPG, PNG, GIF, WEBP) | ✓ | – |
+
+`pdf_engine`-asetus määrittää käytetäänkö PDF/EPUB-muunnokseen markitdownia vai pymupdf4llm:ää. XPS menee aina pymupdf4llm:lle.
 
 ## Deploy
 

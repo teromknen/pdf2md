@@ -4,3 +4,4 @@ scripts_dir = C:\Tools\Python
 
 [settings]
 debounce_seconds = 10
+pdf_engine = pymupdf4llm   # pymupdf4llm | markitdown
