@@ -6,6 +6,7 @@ tests/
 
 # Claude Code
 .claude/
+CONTEXT.md
 
 # Python
 __pycache__/
